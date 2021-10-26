@@ -1,14 +1,22 @@
+# Dcoker compose version
 version: '3'
-
+# Define services for python django app
 services:
+  # app is the name of my services
   app:
     build:
+      # context . means my current directory
       context: .
+      # port of my project
     ports:
       - "8000:8000"
+    # define the volumes, when I update my app don't needs restart docker to see the changes
+    # my app dictory to the app folder in docker
     volumes:
       - ./app:/app
-    command: >
+    # command to run in our container
+    # sh means shell
+    command: > 
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
